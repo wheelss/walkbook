@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiekai.demo.good.dao.GoodDao">
+    <!--统计商品数量-->
+    <select id="countGoodAcct" parameterType="com.xiekai.demo.good.entity.GoodInfo" resultType="int">
+        select count(*)
+        from good
+        where is_delete = 0
+        and good_id= #{goodId}
+    </select>
+
+    <!--新增商品-->
+    <insert id="saveGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        insert into good
+        (good_name,
+        first_classification,
+        second_classification,
+        ad,
+        good_introduction,
+        store_name,
+        inventory,
+        cost_price,
+        sell_price,
+        picture,
+        sales,
+        good_status,
+        views,
+        merchant_code,
+        isbn_code,
+        star_level,
+        writer,
+        press,
+        is_delete,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        version)
+        values
+        (#{goodName},
+        #{firstClassification},
+        #{secondClassification},
+        #{ad},
+        #{goodIntroduction},
+        #{storeName},
+        #{inventory},
+        #{costPrice},
+        #{sellPrice},
+        #{picture},
+        0,
+        0,
+        0,
+        #{merchantCode},
+        #{isbnCode},
+        0,
+        #{writer},
+        #{press},
+        0,
+        #{createUser},
+        now(),
+        #{updateUser},
+        now(),
+        0)
+    </insert>
+
+    <!--删除商品-->
+    <update id="deleteGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        update good
+        set
+        is_delete = 1,
+        update_time = now(),
+        update_user = #{updateUser},
+        version = version + 1
+        where good_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--修改商品信息-->
+    <update id="updateGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        update good
+        set
+        good_name = #{goodName},
+        isbn_code = #{isbnCode},
+        first_classification = #{firstClassification},
+        second_classification = #{secondClassification},
+        ad = #{ad},
+        good_introduction = #{goodIntroduction},
+        store_name =#{storeName},
+        inventory =#{inventory},
+        cost_price =#{costPrice},
+        sell_price =#{sellPrice},
+        update_time = now(),
+        update_user = #{updateUser},
+        version = version + 1
+        where good_id = #{goodId}
+        and version = #{version}
+    </update>
+
+    <!--获取商品信息-->
+    <select id="getGoodByIsbnCode" parameterType="java.lang.String" resultType="com.xiekai.demo.good.entity.GoodInfo">
+        select
+        good_name goodName,
+        first_classification firstClassification,
+        second_classification secondClassification,
+        ad,
+        good_introduction goodIntroduction,
+        store_name storeName,
+        inventory,
+        cost_price costPrice,
+        sell_price sellPrice,
+        picture,
+        sales,
+        good_status goodStatus,
+        shelf_time shelfTime,
+        views,
+        merchant_code merchantCode,
+        isbn_code isbnCode,
+        star_level starLevel,
+        writer,
+        press
+        from good
+        where good_id = #{goodId}
+        and is_delete = 0
+    </select>
+
+
+    <!--商品列表-->
+    <select id="listGoodByPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
+            resultType="com.xiekai.demo.good.entity.GoodInfo">
+        select
+        good_name goodName,
+        cost_price costPrice,
+        sell_price sellPrice,
+        sales,
+        first_classification firstClassification,
+        second_classification secondClassification,
+        ad,
+        good_introduction goodIntroduction,
+        good_status goodStatus,
+        shelf_time shelfTime,
+        views,
+        merchant_code merchantCode,
+        store_name storeName,
+        inventory,
+        isbn_code isbnCode,
+        star_level starLevel,
+        writer,
+        press
+        from good
+        where is_delete = 0
+        <if test="goodName != null and goodName != ''">
+            and good_name like concat('%', #{goodName}, '%')
+        </if>
+        <if test="ad != null and ad != ''">
+            and ad like concat('%', #{ad}, '%')
+        </if>
+        <if test="writer != null and writer != ''">
+            and writer like concat('%', #{writer}, '%')
+        </if>
+        <if test="press != null and press != ''">
+            and press like concat('%', #{press}, '%')
+        </if>
+        <if test="goodStatus != null and goodStatus != ''">
+            and good_status like concat('%', #{goodStatus}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
+    <!--修改商品状态-->
+    <update id="updateGoodStatus" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        update good
+        set
+        good_status = #{goodStatus},
+        update_time = now(),
+        update_user = #{updateUser},
+        shelf_time = #{shelfTime},
+        version = version + 1
+        where good_id = #{goodId}
+        and version = #{version}
+    </update>
+
+
+</mapper>

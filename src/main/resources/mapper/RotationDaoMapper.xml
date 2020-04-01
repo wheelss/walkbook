@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiekai.demo.rotation.dao.RotationDao">
+
+    <!--新增轮播图-->
+    <insert id="saveRotation" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
+        insert into rotation
+        (rotation,
+        sorting,
+        status,
+        effective_date,
+        expiry_date,
+        good,
+        is_delete,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        version)
+        values
+        (#{rotation},
+        #{sorting},
+        2,
+        #{effectiveDate},
+        #{expiryDate},
+        #{good},
+        0,
+        #{createUser},
+        now(),
+        #{updateUser},
+        now(),
+        0)
+    </insert>
+
+    <!--删除轮播图-->
+    <update id="deleteRotation" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
+        update rotation
+        set
+        is_delete = 1,
+        update_time = now(),
+        update_user = #{updateUser},
+        version = version + 1
+        where rotation_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+</mapper>

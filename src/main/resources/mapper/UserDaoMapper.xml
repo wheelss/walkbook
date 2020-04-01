@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiekai.demo.user.dao.UserDao">
+    <!--统计用户账号数量-->
+    <select id="countUserAcct" parameterType="com.xiekai.demo.user.entity.UserInfo" resultType="int">
+        select count(user_account)
+        from user
+        where is_delete = 0
+        and user_account = #{userAccount}
+    </select>
+
+    <!--新增用户-->
+    <insert id="saveUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
+        insert into user
+        (user_code,
+        user_account,
+        user_password,
+        user_name,
+        sex,
+        phone,
+        email,
+        id_card,
+        role,
+        is_delete,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        version)
+        values
+        (#{userCode},
+        #{userAccount},
+        #{userPassword},
+        #{userName},
+        #{sex},
+        #{phone},
+        #{email},
+        #{idCard},
+        #{role},
+        0,
+        #{createUser},
+        now(),
+        #{updateUser},
+        now(),
+        0)
+    </insert>
+    <!--删除用户-->
+    <update id="deleteUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
+        update user
+        set
+        is_delete = 1,
+        update_time = now(),
+        update_user = #{updateUser},
+        version = version + 1
+        where user_code in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
+    <!--修改用户信息-->
+    <update id="updateUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
+        update user
+        set
+        user_account = #{userAccount},
+        user_password = #{userPassword},
+        user_name = #{userName},
+        sex = #{sex},
+        phone = #{phone},
+        email = #{email},
+        id_card = #{idCard},
+        role = #{role},
+        update_time = now(),
+        update_user = #{updateUser},
+        version = version + 1
+        where user_code = #{userCode}
+        and version = #{version}
+    </update>
+
+    <!--获取用户信息-->
+    <select id="getUserByUserCode" parameterType="java.lang.String" resultType="com.xiekai.demo.user.entity.UserInfo">
+        select
+        user_code userCode,
+        user_account userAccount,
+        user_password userPassword,
+        user_name userName,
+        sex,
+        phone,
+        email,
+        id_card idCard,
+        role,
+        from user
+        where user_code = #{userCode}
+        and is_delete = 0
+    </select>
+
+    <!--用户列表-->
+    <select id="listUserByPage" parameterType="com.xiekai.demo.user.entity.UserInfo"
+            resultType="com.xiekai.demo.user.entity.UserInfo">
+        select
+        a.user_code userCode,
+        a.user_account userAccount,
+        a.user_name userName,
+        a.role,
+        a.sex sex,
+        a.phone,
+        a.email,
+        a.id_card idCard
+        from user a
+        where a.is_delete = 0
+        <if test="userAccount != null and userAccount != ''">
+            and a.user_account like concat('%', #{userAccount}, '%')
+        </if>
+        <if test="userName != null and userName != ''">
+            and a.user_name like concat('%', #{userName}, '%')
+        </if>
+        <if test="role != null and role != ''">
+            and a.role like concat('%', #{role}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
+</mapper>

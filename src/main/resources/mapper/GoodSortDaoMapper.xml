@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xiekai.demo.goodSort.dao.GoodSortDao">
+
+    <!--新增轮播图-->
+    <insert id="saveGoodSort" parameterType="com.xiekai.demo.goodSort.entity.GoodSortInfo">
+        insert into good_sort
+        (sorting_id,
+        sorting_name,
+        comment,
+        cate_code_parent,
+        levels,
+        is_parent,
+        is_delect,
+        create_user,
+        create_time,
+        update_user,
+        update_time,
+        version
+        )
+        values
+        (#{sortingId},
+        #{sortingName},
+        #{comment},
+        #{cateCodeParent},
+        #{levels},
+        #{isParent},
+        0,
+        #{createUser},
+        now(),
+        #{updateUser},
+        now(),
+        0)
+    </insert>
+
+
+</mapper>
