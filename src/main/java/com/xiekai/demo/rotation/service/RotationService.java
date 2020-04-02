@@ -56,6 +56,23 @@ public class RotationService {
         }
         return appResponse;
     }
-
+    /**
+     * demo 修改轮播图状态
+     * @return
+     * @Author xiekai
+     * @Date 2020-04-02
+     */
+    @Transactional(rollbackFor = Exception.class)
+    public AppResponse updateRotationStatus(String updateUser,String status,
+                                        String rotationId,String expiryDate) {
+        List<String> listCode = Arrays.asList(rotationId.split(","));
+        AppResponse appResponse = AppResponse.success("修改成功");
+        // 修改商品信息
+        int count = rotationDao.updateRotationStatus(listCode,updateUser,status,expiryDate);
+        if (0 == count) {
+            appResponse = AppResponse.bizError("删除失败，请重试！");
+        }
+        return appResponse;
+    }
 }
 

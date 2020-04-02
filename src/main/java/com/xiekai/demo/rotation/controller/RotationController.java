@@ -57,7 +57,7 @@ public class RotationController {
         try {
             return rotationService.deleteRotation(rotationId, updateUser);
         } catch (Exception e) {
-            logger.error("商品删除错误", e);
+            logger.error("轮播图删除错误", e);
             System.out.println(e.toString());
             throw e;
         }
@@ -70,15 +70,24 @@ public class RotationController {
      * @author xiekai
      * @time 2020-3-25
      */
-   /* @PostMapping("updateGood")
-    public AppResponse updateUser(GoodInfo goodInfo) {
+
+    /**
+     * 修改轮播图状态
+     * @return AppResponse
+     * @author xiekai
+     * @time 2020-3-25
+     */
+    @PostMapping("updateRotationStatus")
+    public AppResponse updateRotationStatus(String updateUser,String status,
+                                        String rotationId,String expiryDate) {
         try {
-            return goodService.updateGood(goodInfo);
+            return rotationService.updateRotationStatus(updateUser,status,rotationId,expiryDate);
         } catch (Exception e) {
-            logger.error("修改商品信息错误", e);
+            logger.error("修改轮播图状态错误", e);
             System.out.println(e.toString());
             throw e;
         }
-    }*/
+    }
+
 
 }

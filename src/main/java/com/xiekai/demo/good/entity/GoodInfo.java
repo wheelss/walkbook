@@ -15,13 +15,13 @@ public class GoodInfo {
     /**
      * 商品id
      */
-    private int goodId;
+    private String goodId;
 
-    public int getGoodId() {
+    public String getGoodId() {
         return goodId;
     }
 
-    public void setGoodId(int goodId) {
+    public void setGoodId(String goodId) {
         this.goodId = goodId;
     }
 

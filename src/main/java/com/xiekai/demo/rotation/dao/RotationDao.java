@@ -24,5 +24,10 @@ public interface RotationDao {
      */
     int deleteRotation(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser);
 
-
+    /**
+     * 修改轮播图状态
+     * @return 修改结果
+     */
+    int updateRotationStatus(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser,
+                         @Param("status") String status, @Param("expiryDate") String expiryDate);
 }

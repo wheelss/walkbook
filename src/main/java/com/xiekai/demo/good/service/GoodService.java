@@ -55,14 +55,14 @@ public class GoodService {
     /**
      * 删除商品
      *
-     * @param isbnCode
+     * @param goodId
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteGood(String isbnCode, String updateUser) {
-        List<String> listCode = Arrays.asList(isbnCode.split(","));
+    public AppResponse deleteGood(String goodId, String updateUser) {
+        List<String> listCode = Arrays.asList(goodId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除商品
         int count = goodDao.deleteGood(listCode, updateUser);
@@ -128,25 +128,18 @@ public class GoodService {
 
     /**
      * demo 修改商品状态
-     *
-     * @param goodInfo
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGoodStatus(GoodInfo goodInfo) {
+    public AppResponse updateGoodStatus(String updateUser,String goodStatus,String goodId) {
+        List<String> listCode = Arrays.asList(goodId.split(","));
         AppResponse appResponse = AppResponse.success("修改成功");
-        // 校验账号是否存在
-        int countUserAcct = goodDao.countGoodAcct(goodInfo);
-        if (0 == countUserAcct) {
-            return AppResponse.bizError("商品不存在");
-        }
         // 修改商品信息
-        int count = goodDao.updateGoodStatus(goodInfo);
+        int count = goodDao.updateGoodStatus(listCode,updateUser,goodStatus);
         if (0 == count) {
-            appResponse = AppResponse.versionError("数据有变化，请刷新！");
-            return appResponse;
+            appResponse = AppResponse.bizError("删除失败，请重试！");
         }
         return appResponse;
     }

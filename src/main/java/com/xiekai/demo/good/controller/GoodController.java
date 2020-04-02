@@ -54,9 +54,9 @@ public class GoodController {
      * @time 2020-3-26
      */
     @PostMapping("deleteGood")
-    public AppResponse deleteGood(String isbnCode, String updateUser) {
+    public AppResponse deleteGood(String goodId, String updateUser) {
         try {
-            return goodService.deleteGood(isbnCode, updateUser);
+            return goodService.deleteGood(goodId, updateUser);
         } catch (Exception e) {
             logger.error("商品删除错误", e);
             System.out.println(e.toString());
@@ -128,11 +128,11 @@ public class GoodController {
      * @time 2020-3-25
      */
     @PostMapping("updateGoodStatus")
-    public AppResponse updateGoodStatus(GoodInfo goodInfo) {
+    public AppResponse updateGoodStatus(String updateUser,String goodStatus,String goodId) {
         try {
-            return goodService.updateGoodStatus(goodInfo);
+            return goodService.updateGoodStatus(updateUser,goodStatus,goodId);
         } catch (Exception e) {
-            logger.error("修改商品信息错误", e);
+            logger.error("修改商品状态错误", e);
             System.out.println(e.toString());
             throw e;
         }

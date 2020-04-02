@@ -64,9 +64,8 @@ public interface GoodDao {
 
     /**
      * 修改商品状态
-     *
-     * @param goodInfo 商品信息
      * @return 修改结果
      */
-    int updateGoodStatus(GoodInfo goodInfo);
+    int updateGoodStatus(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser,
+                         @Param("goodStatus") String goodStatus );
 }

@@ -175,10 +175,12 @@
         good_status = #{goodStatus},
         update_time = now(),
         update_user = #{updateUser},
-        shelf_time = #{shelfTime},
+        shelf_time = now(),
         version = version + 1
-        where good_id = #{goodId}
-        and version = #{version}
+        where good_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
     </update>
 
 

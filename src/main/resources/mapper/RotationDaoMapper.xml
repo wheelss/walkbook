@@ -46,4 +46,20 @@
         </foreach>
     </update>
 
+    <!--修改轮播图状态-->
+    <update id="updateRotationStatus" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
+        update rotation
+        set
+        status = #{status},
+        update_time = now(),
+        update_user = #{updateUser},
+        effective_date =now(),
+        expiry_date = #{expiryDate},
+        version = version + 1
+        where rotation_id in
+        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </update>
+
 </mapper>
