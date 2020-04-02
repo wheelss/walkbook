@@ -100,13 +100,13 @@ public class GoodService {
     /**
      * 查询商品详情
      *
-     * @param isbnCode
+     * @param goodId
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
-    public AppResponse getGoodByIsbnCode(String isbnCode) {
-        GoodInfo goodInfo = goodDao.getGoodByIsbnCode(isbnCode);
+    public AppResponse getGoodByGoodId(String goodId) {
+        GoodInfo goodInfo = goodDao.getGoodByGoodId(goodId);
         return AppResponse.success("查询成功！", goodInfo);
     }
 

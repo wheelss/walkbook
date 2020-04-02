@@ -49,10 +49,10 @@ public interface GoodDao {
     /**
      * 查询商品信息
      *
-     * @param isbnCode isbn编号
+     * @param goodId 商品id
      * @return 修改结果
      */
-    GoodInfo getGoodByIsbnCode(@Param("isbnCode") String isbnCode);
+    GoodInfo getGoodByGoodId(@Param("goodId") String goodId);
 
     /**
      * 获取所有商品信息

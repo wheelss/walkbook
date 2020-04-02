@@ -1,5 +1,6 @@
 package com.xiekai.demo.rotation.dao;
 
+import com.xiekai.demo.good.entity.GoodInfo;
 import com.xiekai.demo.rotation.entity.RotationInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -30,4 +31,19 @@ public interface RotationDao {
      */
     int updateRotationStatus(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser,
                          @Param("status") String status, @Param("expiryDate") String expiryDate);
+
+    /**
+     * 获取所有轮播图信息
+     *
+     * @param rotationInfo 轮播图信息
+     * @return 所有轮播图信息
+     */
+    List<RotationInfo> listRotationByPage(RotationInfo rotationInfo);
+
+    /**
+     * 获取所有商品信息
+     * @param goodInfo 商品信息
+     * @return 所有商品信息
+     */
+    List<GoodInfo> listGoodByPage(GoodInfo goodInfo);
 }

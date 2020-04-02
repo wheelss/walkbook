@@ -1,5 +1,6 @@
 package com.xiekai.demo.rotation.controller;
 
+import com.xiekai.demo.good.entity.GoodInfo;
 import com.xiekai.demo.rotation.entity.RotationInfo;
 import com.xiekai.demo.rotation.service.RotationService;
 import com.xiekai.demo.util.AppResponse;
@@ -81,5 +82,39 @@ public class RotationController {
         }
     }
 
+    /**
+     * demo 轮播图列表(分页)
+     * @param
+     * @return AppResponse
+     * @author xiekai
+     * @Date 2020-04-02
+     */
+    @RequestMapping(value = "listRotation")
+    public AppResponse listRotation(RotationInfo rotationInfo) {
+        try {
+            return rotationService.listRotation(rotationInfo);
+        } catch (Exception e) {
+            logger.error("查询轮播图列表异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
+
+    /**
+     * 选择商品
+     * @return AppResponse
+     * @author xiekai
+     * @time 2020-4-2
+     */
+    @RequestMapping(value = "listRotationGood")
+    public AppResponse listGood(GoodInfo goodInfo) {
+        try {
+            return rotationService.listRotationGood(goodInfo);
+        } catch (Exception e) {
+            logger.error("查询商品列表异常", e);
+            System.out.println(e.toString());
+            throw e;
+        }
+    }
 
 }

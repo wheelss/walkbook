@@ -99,7 +99,7 @@
     </update>
 
     <!--获取商品信息-->
-    <select id="getGoodByIsbnCode" parameterType="java.lang.String" resultType="com.xiekai.demo.good.entity.GoodInfo">
+    <select id="getGoodByGoodId" parameterType="java.lang.String" resultType="com.xiekai.demo.good.entity.GoodInfo">
         select
         good_name goodName,
         first_classification firstClassification,
@@ -130,6 +130,7 @@
     <select id="listGoodByPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
             resultType="com.xiekai.demo.good.entity.GoodInfo">
         select
+        good_code goodCode,
         good_name goodName,
         cost_price costPrice,
         sell_price sellPrice,

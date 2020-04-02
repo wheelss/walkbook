@@ -85,15 +85,15 @@ public class GoodController {
     /**
      * 查询商品详情
      *
-     * @param isbnCode
+     * @param goodId
      * @return AppResponse
      * @author xiekai
      * @Date 2020-03-25
      */
-    @RequestMapping(value = "getGoodByIsbnCode")
-    public AppResponse getUserByUserCode(String isbnCode) {
+    @RequestMapping(value = "getGoodByGoodId")
+    public AppResponse getGoodByGoodId(String goodId) {
         try {
-            return goodService.getGoodByIsbnCode(isbnCode);
+            return goodService.getGoodByGoodId(goodId);
         } catch (Exception e) {
             logger.error("商品查询错误", e);
             System.out.println(e.toString());
@@ -110,7 +110,7 @@ public class GoodController {
      * @Date 2020-03-26
      */
     @RequestMapping(value = "listGood")
-    public AppResponse listUsers(GoodInfo goodInfo) {
+    public AppResponse listGood(GoodInfo goodInfo) {
         try {
             return goodService.listGood(goodInfo);
         } catch (Exception e) {
@@ -137,6 +137,7 @@ public class GoodController {
             throw e;
         }
     }
+
 
 
 }

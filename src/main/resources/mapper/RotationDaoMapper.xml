@@ -62,4 +62,41 @@
         </foreach>
     </update>
 
+    <!--轮播图列表-->
+    <select id="listRotationByPage" parameterType="com.xiekai.demo.rotation.entity.RotationInfo"
+            resultType="com.xiekai.demo.rotation.entity.RotationInfo">
+        select
+            sorting,
+            rotation,
+            status,
+            effective_date,
+            expiry_date
+        from rotation
+        where is_delete = 0
+        <if test="status != null and status != ''">
+            and status like concat('%', #{status}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
+    <!--商品列表-->
+    <select id="listGoodByPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
+            resultType="com.xiekai.demo.good.entity.GoodInfo">
+        select
+            isbn_code isbnCode,
+            good_name goodName,
+            sales,
+            first_classification firstClassification,
+            second_classification secondClassification
+        from good
+        where is_delete = 0
+        <if test="goodName != null and goodName != ''">
+            and good_name like concat('%', #{goodName}, '%')
+        </if>
+        <if test="isbnCode != null and isbnCode != ''">
+            and isbn_code like concat('%', #{isbnCode}, '%')
+        </if>
+        order by update_time desc
+    </select>
+
 </mapper>
