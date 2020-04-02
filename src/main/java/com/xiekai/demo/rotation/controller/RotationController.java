@@ -64,14 +64,6 @@ public class RotationController {
     }
 
     /**
-     * 修改轮播图
-     *
-     * @return AppResponse
-     * @author xiekai
-     * @time 2020-3-25
-     */
-
-    /**
      * 修改轮播图状态
      * @return AppResponse
      * @author xiekai
