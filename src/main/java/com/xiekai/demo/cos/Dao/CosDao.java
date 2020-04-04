@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface CosDao {
     /**
-     *1
+     *
      * @param urls
      * @return
      */
