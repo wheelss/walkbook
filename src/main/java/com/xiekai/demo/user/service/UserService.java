@@ -33,15 +33,14 @@ public class UserService {
      * @time 2020-3-25
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse saveUser(UserInfo userInfo) {
+    public AppResponse addUser(UserInfo userInfo) {
         int countUserAcct = userDao.countUserAcct(userInfo);
         if (0 != countUserAcct) {
             return AppResponse.bizError("用户账号已存在，请重新输入！");
         }
-        userInfo.setUserCode(StringUtil.getCommonCode(2));
-        userInfo.setIsDelete(0);
+        userInfo.setUserId(StringUtil.getCommonCode(2));
         // 新增用户
-        int count = userDao.saveUser(userInfo);
+        int count = userDao.addUser(userInfo);
         if (0 == count) {
             return AppResponse.bizError("新增失败，请重试！");
         }
@@ -51,17 +50,17 @@ public class UserService {
     /**
      * 删除用户
      *
-     * @param userCode
+     * @param userId
      * @return
      * @Author xiekai
      * @Date 2020-03-25
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteUser(String userCode, String updateUser) {
-        List<String> listCode = Arrays.asList(userCode.split(","));
+    public AppResponse deleteUser(String userId) {
+        List<String> listCode = Arrays.asList(userId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除用户
-        int count = userDao.deleteUser(listCode, updateUser);
+        int count = userDao.deleteUser(listCode);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
@@ -96,13 +95,13 @@ public class UserService {
     /**
      * 查询用户详情
      *
-     * @param userCode
+     * @param userId
      * @return
      * @Author xiekai
      * @Date 2020-03-25
      */
-    public AppResponse getUserByUserCode(String userCode) {
-        UserInfo userInfo = userDao.getUserByUserCode(userCode);
+    public AppResponse getUser(String userId) {
+        UserInfo userInfo = userDao.getUser(userId);
         return AppResponse.success("查询成功！", userInfo);
     }
 
@@ -114,9 +113,9 @@ public class UserService {
      * @Author xiekai
      * @Date 2020-03-26
      */
-    public AppResponse listUser(UserInfo userInfo) {
+    public AppResponse listUsersPage(UserInfo userInfo) {
         PageHelper.startPage(userInfo.getPageNum(), userInfo.getPageSize());
-        List<UserInfo> userInfoList = userDao.listUserByPage(userInfo);
+        List<UserInfo> userInfoList = userDao.listUsersPage(userInfo);
         // 包装Page对象
         PageInfo<UserInfo> pageData = new PageInfo<UserInfo>(userInfoList);
         return AppResponse.success("查询成功！", pageData);

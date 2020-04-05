@@ -28,7 +28,7 @@ public interface UserDao {
      * @param userInfo 用户信息
      * @return
      */
-    int saveUser(UserInfo userInfo);
+    int addUser(UserInfo userInfo);
 
     /**
      * 删除用户信息
@@ -36,7 +36,7 @@ public interface UserDao {
      * @param listCode 选中的用户编号集合
      * @return
      */
-    int deleteUser(@Param("listCode") List<String> listCode, @Param("updateUser") String updateUser);
+    int deleteUser(@Param("listCode") List<String> listCode);
 
     /**
      * 修改用户信息
@@ -49,10 +49,10 @@ public interface UserDao {
     /**
      * 查询用户信息
      *
-     * @param userCode 用户编号
+     * @param userId 用户编号
      * @return 修改结果
      */
-    UserInfo getUserByUserCode(@Param("userCode") String userCode);
+    UserInfo getUser(@Param("userId") String userId);
 
     /**
      * 获取所有用户信息
@@ -60,5 +60,5 @@ public interface UserDao {
      * @param userInfo 用户信息
      * @return 所有用户信息
      */
-    List<UserInfo> listUserByPage(UserInfo userInfo);
+    List<UserInfo> listUsersPage(UserInfo userInfo);
 }

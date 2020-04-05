@@ -4,34 +4,32 @@
     <!--统计用户账号数量-->
     <select id="countUserAcct" parameterType="com.xiekai.demo.user.entity.UserInfo" resultType="int">
         select count(user_account)
-        from user
+        from t_sys_user
         where is_delete = 0
         and user_account = #{userAccount}
     </select>
 
     <!--新增用户-->
-    <insert id="saveUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
-        insert into user
-        (user_code,
-        user_account,
-        user_password,
+    <insert id="addUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
+        insert into t_sys_user
+        (user_id,
+        user_acct,
         user_name,
+        user_password,
         sex,
         phone,
         email,
-        id_card,
+        idcard,
         role,
         is_delete,
         create_user,
         create_time,
-        update_user,
-        update_time,
         version)
         values
-        (#{userCode},
-        #{userAccount},
-        #{userPassword},
+        (#{userId},
+        #{userAcct},
         #{userName},
+        #{userPassword},
         #{sex},
         #{phone},
         #{email},
@@ -40,19 +38,17 @@
         0,
         #{createUser},
         now(),
-        #{updateUser},
-        now(),
         0)
     </insert>
+
     <!--删除用户-->
     <update id="deleteUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
-        update user
+        update t_sys_user
         set
         is_delete = 1,
         update_time = now(),
-        update_user = #{updateUser},
-        version = version + 1
-        where user_code in
+        update_user = #{updateUser}
+        where user_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
@@ -60,56 +56,56 @@
 
     <!--修改用户信息-->
     <update id="updateUser" parameterType="com.xiekai.demo.user.entity.UserInfo">
-        update user
+        update t_sys_user
         set
-        user_account = #{userAccount},
-        user_password = #{userPassword},
-        user_name = #{userName},
-        sex = #{sex},
-        phone = #{phone},
-        email = #{email},
-        id_card = #{idCard},
-        role = #{role},
-        update_time = now(),
-        update_user = #{updateUser},
-        version = version + 1
-        where user_code = #{userCode}
+            user_acct = #{userAcct},
+            user_password = #{userPassword},
+            user_name = #{userName},
+            sex = #{sex},
+            phone = #{phone},
+            email = #{email},
+            idcard = #{idCard},
+            role = #{role},
+            update_time = now(),
+            update_user = #{updateUser},
+            version = version + 1
+        where user_id = #{userId}
         and version = #{version}
     </update>
 
     <!--获取用户信息-->
-    <select id="getUserByUserCode" parameterType="java.lang.String" resultType="com.xiekai.demo.user.entity.UserInfo">
+    <select id="getUser" parameterType="java.lang.String" resultType="com.xiekai.demo.user.entity.UserInfo">
         select
-        user_code userCode,
-        user_account userAccount,
+        user_id userId,
+        user_acct userAcct,
         user_password userPassword,
         user_name userName,
         sex,
         phone,
         email,
-        id_card idCard,
+        idcard idCard,
         role,
-        from user
-        where user_code = #{userCode}
+        from t_sys_user
+        where user_id = #{userId}
         and is_delete = 0
     </select>
 
     <!--用户列表-->
-    <select id="listUserByPage" parameterType="com.xiekai.demo.user.entity.UserInfo"
+    <select id="listUsersPage" parameterType="com.xiekai.demo.user.entity.UserInfo"
             resultType="com.xiekai.demo.user.entity.UserInfo">
         select
-        a.user_code userCode,
-        a.user_account userAccount,
+        a.user_id userId,
+        a.user_acct userAcct,
         a.user_name userName,
         a.role,
         a.sex sex,
         a.phone,
         a.email,
-        a.id_card idCard
-        from user a
+        a.idcard idCard
+        from t_sys_user a
         where a.is_delete = 0
-        <if test="userAccount != null and userAccount != ''">
-            and a.user_account like concat('%', #{userAccount}, '%')
+        <if test="userAcct != null and userAcct != ''">
+            and a.user_acct like concat('%', #{userAcct}, '%')
         </if>
         <if test="userName != null and userName != ''">
             and a.user_name like concat('%', #{userName}, '%')

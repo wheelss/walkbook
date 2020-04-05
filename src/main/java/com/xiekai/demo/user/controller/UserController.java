@@ -35,10 +35,10 @@ public class UserController {
      * @author xiekai
      * @time 2020-3-25
      */
-    @PostMapping("saveUser")
-    public AppResponse saveUser(UserInfo userInfo) {
+    @PostMapping("addUser")
+    public AppResponse addUser(UserInfo userInfo) {
         try {
-            AppResponse appResponse = userService.saveUser(userInfo);
+            AppResponse appResponse = userService.addUser(userInfo);
             return appResponse;
         } catch (Exception e) {
             logger.error("用户新增失败", e);
@@ -55,9 +55,9 @@ public class UserController {
      * @time 2020-3-25
      */
     @PostMapping("deleteUser")
-    public AppResponse deleteUser(String userCode, String updateUser) {
+    public AppResponse deleteUser(String userId) {
         try {
-            return userService.deleteUser(userCode, updateUser);
+            return userService.deleteUser(userId);
         } catch (Exception e) {
             logger.error("用户删除错误", e);
             System.out.println(e.toString());
@@ -86,15 +86,15 @@ public class UserController {
     /**
      * 查询用户详情
      *
-     * @param userCode
+     * @param userId
      * @return AppResponse
      * @author xiekai
      * @Date 2020-03-25
      */
-    @RequestMapping(value = "getUserByUserCode")
-    public AppResponse getUserByUserCode(String userCode) {
+    @RequestMapping(value = "getUser")
+    public AppResponse getUser(String userId) {
         try {
-            return userService.getUserByUserCode(userCode);
+            return userService.getUser(userId);
         } catch (Exception e) {
             logger.error("用户查询错误", e);
             System.out.println(e.toString());
@@ -109,10 +109,10 @@ public class UserController {
      * @author xiekai
      * @Date 2020-03-26
      */
-    @RequestMapping(value = "listUser")
-    public AppResponse listUsers(UserInfo userInfo) {
+    @RequestMapping(value = "listUsersPage")
+    public AppResponse listUsersPage(UserInfo userInfo) {
         try {
-            return userService.listUser(userInfo);
+            return userService.listUsersPage(userInfo);
         } catch (Exception e) {
             logger.error("查询用户列表异常", e);
             System.out.println(e.toString());

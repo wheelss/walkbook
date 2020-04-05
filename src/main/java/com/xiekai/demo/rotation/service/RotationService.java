@@ -6,6 +6,7 @@ import com.xiekai.demo.good.entity.GoodInfo;
 import com.xiekai.demo.rotation.dao.RotationDao;
 import com.xiekai.demo.rotation.entity.RotationInfo;
 import com.xiekai.demo.util.AppResponse;
+import com.xiekai.demo.util.StringUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +36,7 @@ public class RotationService {
     @Transactional(rollbackFor = Exception.class)
     public AppResponse addSlideshowHome(RotationInfo rotationInfo) {
         //新增轮播图
+        rotationInfo.setSlideshowId(StringUtil.getCommonCode(2));
         int count = rotationDao.addSlideshowHome(rotationInfo);
         if (0 == count) {
             return AppResponse.bizError("新增失败,请重试");

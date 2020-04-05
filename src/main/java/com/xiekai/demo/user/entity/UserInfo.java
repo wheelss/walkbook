@@ -1,7 +1,5 @@
 package com.xiekai.demo.user.entity;
 
-import java.util.Date;
-
 /**
  * 用户实体类
  *
@@ -21,7 +19,7 @@ public class UserInfo {
     /**
      * 用户编码
      */
-    private String userCode;
+    private String userId;
     /**
      * 用户姓名
      */
@@ -29,7 +27,7 @@ public class UserInfo {
     /**
      * 用户登录名
      */
-    private String userAccount;
+    private String userAcct;
     /**
      * 用户密码
      */
@@ -51,7 +49,7 @@ public class UserInfo {
      */
     private String email;
     /**
-     * 角色 （0管理员，1店长,2司机,3客户）
+     * 角色 超级管理员0，管理员1，店长2，司机3，客户4
      */
     private int role;
     /**
@@ -95,12 +93,12 @@ public class UserInfo {
         this.pageNum = pageNum;
     }
 
-    public String getUserCode() {
-        return userCode;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUserCode(String userCode) {
-        this.userCode = userCode;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -112,19 +110,11 @@ public class UserInfo {
     }
 
     public String getUserAcct() {
-        return userAccount;
+        return userAcct;
     }
 
     public void setUserAcct(String userAcct) {
-        this.userAccount = userAcct;
-    }
-
-    public String getUserAccount() {
-        return userAccount;
-    }
-
-    public void setUserAccount(String userAccount) {
-        this.userAccount = userAccount;
+        this.userAcct = userAcct;
     }
 
     public String getUserPassword() {
@@ -133,46 +123,6 @@ public class UserInfo {
 
     public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
-    }
-
-    public String getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(String createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public String getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(String updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
     }
 
     public String getIdCard() {
@@ -207,6 +157,14 @@ public class UserInfo {
         this.email = email;
     }
 
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
     public int getIsDelete() {
         return isDelete;
     }
@@ -215,6 +173,37 @@ public class UserInfo {
         this.isDelete = isDelete;
     }
 
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getCreateUser() {
+        return createUser;
+    }
+
+    public void setCreateUser(String createUser) {
+        this.createUser = createUser;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
 
     public String getVersion() {
         return version;
