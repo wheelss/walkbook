@@ -15,101 +15,79 @@ public class GoodInfo {
     /**
      * 商品id
      */
-    private String goodId;
-
-    public String getGoodId() {
-        return goodId;
-    }
-
-    public void setGoodId(String goodId) {
-        this.goodId = goodId;
-    }
-
+    private String goodsId;
+    /**
+     * 书号
+     */
+    private String isbn;
     /**
      * 商品名称
      */
-    private String goodName;
+    private String goodsName;
     /**
      * 一级分类
      */
-    private String firstClassification;
+    private String oneClassifyName;
     /**
      * 二级分类
      */
-    private String secondClassification;
+    private String twoClassifyName;
     /**
      * 广告词
      */
-    private String ad;
+    private String goodsAdvertise;
     /**
      * 商品介绍
      */
-    private String goodIntroduction;
+    private String goodsDescribe;
     /**
-     * 门店名称
+     * 进货商家名称
      */
-    private String storeName;
+    private String supplierName;
     /**
      * 库存
      */
-    private int inventory;
+    private int goodsInventory;
     /**
      * 成本价
      */
-    private int costPrice;
+    private double goodsOriginalCost;
     /**
      * 售价
      */
-    private int sellPrice;
+    private double goodsPrice;
     /**
      * 销售量
      */
-    private int sales;
+    private int goodsSales;
     /**
-     * 商品状态(0未发布,1上架,2下架)
+     * 商品状态编号：0售罄、1在售、2已下架、3未发布
      */
-    private int goodStatus;
+    private int goodsStateId;
     /**
      * 上架时间
      */
-    private String shelfTime;
+    private String goodsShelfTime;
     /**
-     * 图片
+     * 商品图片路径
      */
-    private String picture;
-
-    public String getPicture() {
-        return picture;
-    }
-
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
+    private String goodsImagePath;
     /**
      * 浏览量
      */
-    private int views;
-    /**
-     * 商家编码
-     */
-    private String merchantCode;
-    /**
-     * isbn书号
-     */
-    private String isbnCode;
-    /**
-     * 星级
-     */
-    private double starLevel;
+    private int goodsViewsNum;
+
+    public int getPageSize() {
+        return pageSize;
+    }
     /**
      * 作者
      */
-    private String writer;
+    private String goodsAuthor;
     /**
      * 出版社
      */
-    private String press;
+    private String goodsPress;
     /**
      * 删除标记(0否,1是)
      */
@@ -133,11 +111,7 @@ public class GoodInfo {
     /**
      * 版本
      */
-    private int version;
-
-    public int getPageSize() {
-        return pageSize;
-    }
+    private String version;
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
@@ -151,148 +125,148 @@ public class GoodInfo {
         this.pageNum = pageNum;
     }
 
-    public String getGoodName() {
-        return goodName;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void setGoodName(String goodName) {
-        this.goodName = goodName;
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
-    public String getFirstClassification() {
-        return firstClassification;
+    public String getIsbn() {
+        return isbn;
     }
 
-    public void setFirstClassification(String firstClassification) {
-        this.firstClassification = firstClassification;
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 
-    public String getSecondClassification() {
-        return secondClassification;
+    public String getGoodsName() {
+        return goodsName;
     }
 
-    public void setSecondClassification(String secondClassification) {
-        this.secondClassification = secondClassification;
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
     }
 
-    public String getAd() {
-        return ad;
+    public String getOneClassifyName() {
+        return oneClassifyName;
     }
 
-    public void setAd(String ad) {
-        this.ad = ad;
+    public void setOneClassifyName(String oneClassifyName) {
+        this.oneClassifyName = oneClassifyName;
     }
 
-    public String getGoodIntroduction() {
-        return goodIntroduction;
+    public String getTwoClassifyName() {
+        return twoClassifyName;
     }
 
-    public void setGoodIntroduction(String goodIntroduction) {
-        this.goodIntroduction = goodIntroduction;
+    public void setTwoClassifyName(String twoClassifyName) {
+        this.twoClassifyName = twoClassifyName;
     }
 
-    public String getStoreName() {
-        return storeName;
+    public String getGoodsAdvertise() {
+        return goodsAdvertise;
     }
 
-    public void setStoreName(String storeName) {
-        this.storeName = storeName;
+    public void setGoodsAdvertise(String goodsAdvertise) {
+        this.goodsAdvertise = goodsAdvertise;
     }
 
-    public int getInventory() {
-        return inventory;
+    public String getGoodsDescribe() {
+        return goodsDescribe;
     }
 
-    public void setInventory(int inventory) {
-        this.inventory = inventory;
+    public void setGoodsDescribe(String goodsDescribe) {
+        this.goodsDescribe = goodsDescribe;
     }
 
-    public int getCostPrice() {
-        return costPrice;
+    public String getSupplierName() {
+        return supplierName;
     }
 
-    public void setCostPrice(int costPrice) {
-        this.costPrice = costPrice;
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
     }
 
-    public int getSellPrice() {
-        return sellPrice;
+    public int getGoodsInventory() {
+        return goodsInventory;
     }
 
-    public void setSellPrice(int sellPrice) {
-        this.sellPrice = sellPrice;
+    public void setGoodsInventory(int goodsInventory) {
+        this.goodsInventory = goodsInventory;
     }
 
-    public int getSales() {
-        return sales;
+    public double getGoodsOriginalCost() {
+        return goodsOriginalCost;
     }
 
-    public void setSales(int sales) {
-        this.sales = sales;
+    public void setGoodsOriginalCost(double goodsOriginalCost) {
+        this.goodsOriginalCost = goodsOriginalCost;
     }
 
-    public int getGoodStatus() {
-        return goodStatus;
+    public double getGoodsPrice() {
+        return goodsPrice;
     }
 
-    public void setGoodStatus(int goodStatus) {
-        this.goodStatus = goodStatus;
+    public void setGoodsPrice(double goodsPrice) {
+        this.goodsPrice = goodsPrice;
     }
 
-    public String getShelfTime() {
-        return shelfTime;
+    public int getGoodsSales() {
+        return goodsSales;
     }
 
-    public void setShelfTime(String shelfTime) {
-        this.shelfTime = shelfTime;
+    public void setGoodsSales(int goodsSales) {
+        this.goodsSales = goodsSales;
     }
 
-    public int getViews() {
-        return views;
+    public int getGoodsStateId() {
+        return goodsStateId;
     }
 
-    public void setViews(int views) {
-        this.views = views;
+    public void setGoodsStateId(int goodsStateId) {
+        this.goodsStateId = goodsStateId;
     }
 
-    public String getMerchantCode() {
-        return merchantCode;
+    public String getGoodsShelfTime() {
+        return goodsShelfTime;
     }
 
-    public void setMerchantCode(String merchantCode) {
-        this.merchantCode = merchantCode;
+    public void setGoodsShelfTime(String goodsShelfTime) {
+        this.goodsShelfTime = goodsShelfTime;
     }
 
-    public String getIsbnCode() {
-        return isbnCode;
+    public String getGoodsImagePath() {
+        return goodsImagePath;
     }
 
-    public void setIsbnCode(String isbnCode) {
-        this.isbnCode = isbnCode;
+    public void setGoodsImagePath(String goodsImagePath) {
+        this.goodsImagePath = goodsImagePath;
     }
 
-    public double getStarLevel() {
-        return starLevel;
+    public int getGoodsViewsNum() {
+        return goodsViewsNum;
     }
 
-    public void setStarLevel(double starLevel) {
-        this.starLevel = starLevel;
+    public void setGoodsViewsNum(int goodsViewsNum) {
+        this.goodsViewsNum = goodsViewsNum;
     }
 
-    public String getWriter() {
-        return writer;
+    public String getGoodsAuthor() {
+        return goodsAuthor;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public void setGoodsAuthor(String goodsAuthor) {
+        this.goodsAuthor = goodsAuthor;
     }
 
-    public String getPress() {
-        return press;
+    public String getGoodsPress() {
+        return goodsPress;
     }
 
-    public void setPress(String press) {
-        this.press = press;
+    public void setGoodsPress(String goodsPress) {
+        this.goodsPress = goodsPress;
     }
 
     public int getIsDelete() {
@@ -335,11 +309,13 @@ public class GoodInfo {
         this.updateTime = updateTime;
     }
 
-    public int getVersion() {
+    public String getVersion() {
         return version;
     }
 
-    public void setVersion(int version) {
+    public void setVersion(String version) {
         this.version = version;
     }
+
+
 }

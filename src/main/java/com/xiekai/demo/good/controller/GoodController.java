@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  * @time 2020-3-25
  */
 @RestController
-@RequestMapping("/good")
+@RequestMapping("/goods")
 public class GoodController {
 
     private static final Logger logger = LoggerFactory.getLogger(GoodController.class);
@@ -34,10 +34,10 @@ public class GoodController {
      * @author xiekai
      * @time 2020-3-25
      */
-    @PostMapping("saveGood")
-    public AppResponse saveGood(GoodInfo goodInfo) {
+    @PostMapping("addGoods")
+    public AppResponse addGoods(GoodInfo goodInfo) {
         try {
-            AppResponse appResponse = goodService.saveGood(goodInfo);
+            AppResponse appResponse = goodService.addGoods(goodInfo);
             return appResponse;
         } catch (Exception e) {
             logger.error("商品新增失败", e);
@@ -53,10 +53,10 @@ public class GoodController {
      * @author xiekai
      * @time 2020-3-26
      */
-    @PostMapping("deleteGood")
-    public AppResponse deleteGood(String goodId, String updateUser) {
+    @PostMapping("deleteGoods")
+    public AppResponse deleteGoods(String goodsId, String updateUser) {
         try {
-            return goodService.deleteGood(goodId, updateUser);
+            return goodService.deleteGoods(goodsId, updateUser);
         } catch (Exception e) {
             logger.error("商品删除错误", e);
             System.out.println(e.toString());
@@ -71,10 +71,10 @@ public class GoodController {
      * @author xiekai
      * @time 2020-3-25
      */
-    @PostMapping("updateGood")
-    public AppResponse updateUser(GoodInfo goodInfo) {
+    @PostMapping("updateGoods")
+    public AppResponse updateGoods(GoodInfo goodInfo) {
         try {
-            return goodService.updateGood(goodInfo);
+            return goodService.updateGoods(goodInfo);
         } catch (Exception e) {
             logger.error("修改商品信息错误", e);
             System.out.println(e.toString());
@@ -85,15 +85,15 @@ public class GoodController {
     /**
      * 查询商品详情
      *
-     * @param goodId
+     * @param goodsId
      * @return AppResponse
      * @author xiekai
      * @Date 2020-03-25
      */
-    @RequestMapping(value = "getGoodByGoodId")
-    public AppResponse getGoodByGoodId(String goodId) {
+    @RequestMapping(value = "getGoods")
+    public AppResponse getGoods(String goodsId) {
         try {
-            return goodService.getGoodByGoodId(goodId);
+            return goodService.getGoods(goodsId);
         } catch (Exception e) {
             logger.error("商品查询错误", e);
             System.out.println(e.toString());
@@ -109,10 +109,10 @@ public class GoodController {
      * @author xiekai
      * @Date 2020-03-26
      */
-    @RequestMapping(value = "listGood")
-    public AppResponse listGood(GoodInfo goodInfo) {
+    @RequestMapping(value = "listGoodsPage")
+    public AppResponse listGoodsPage(GoodInfo goodInfo) {
         try {
-            return goodService.listGood(goodInfo);
+            return goodService.listGoodsPage(goodInfo);
         } catch (Exception e) {
             logger.error("查询商品列表异常", e);
             System.out.println(e.toString());
@@ -127,10 +127,10 @@ public class GoodController {
      * @author xiekai
      * @time 2020-3-25
      */
-    @PostMapping("updateGoodStatus")
-    public AppResponse updateGoodStatus(String updateUser,String goodStatus,String goodId) {
+    @PostMapping("updateGoodsShelfState")
+    public AppResponse updateGoodsShelfState(GoodInfo goodInfo) {
         try {
-            return goodService.updateGoodStatus(updateUser,goodStatus,goodId);
+            return goodService.updateGoodsShelfState(goodInfo);
         } catch (Exception e) {
             logger.error("修改商品状态错误", e);
             System.out.println(e.toString());

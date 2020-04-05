@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -29,7 +30,7 @@ public class GoodService {
 
 
     /**
-     * 新增用户
+     * 新增商品
      *
      * @param goodInfo
      * @return
@@ -37,7 +38,7 @@ public class GoodService {
      * @time 2020-3-25
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse saveGood(GoodInfo goodInfo) {
+    public AppResponse addGoods(GoodInfo goodInfo) {
         //检验商品是否存在
         int countUserAcct = goodDao.countGoodAcct(goodInfo);
         if (0 != countUserAcct) {
@@ -45,7 +46,7 @@ public class GoodService {
         }
         goodInfo.setIsDelete(0);
         // 新增商品
-        int count = goodDao.saveGood(goodInfo);
+        int count = goodDao.addGoods(goodInfo);
         if (0 == count) {
             return AppResponse.bizError("新增失败，请重试！");
         }
@@ -55,17 +56,17 @@ public class GoodService {
     /**
      * 删除商品
      *
-     * @param goodId
+     * @param goodsId
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse deleteGood(String goodId, String updateUser) {
-        List<String> listCode = Arrays.asList(goodId.split(","));
+    public AppResponse deleteGoods(String goodsId, String updateUser) {
+        List<String> listCode = Arrays.asList(goodsId.split(","));
         AppResponse appResponse = AppResponse.success("删除成功！");
         // 删除商品
-        int count = goodDao.deleteGood(listCode, updateUser);
+        int count = goodDao.deleteGoods(listCode, updateUser);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }
@@ -81,7 +82,7 @@ public class GoodService {
      * @Date 2020-03-26
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGood(GoodInfo goodInfo) {
+    public AppResponse updateGoods(GoodInfo goodInfo) {
         AppResponse appResponse = AppResponse.success("修改成功");
         // 校验账号是否存在
         int countUserAcct = goodDao.countGoodAcct(goodInfo);
@@ -89,7 +90,7 @@ public class GoodService {
             return AppResponse.bizError("商品不存在");
         }
         // 修改商品信息
-        int count = goodDao.updateGood(goodInfo);
+        int count = goodDao.updateGoods(goodInfo);
         if (0 == count) {
             appResponse = AppResponse.versionError("数据有变化，请刷新！");
             return appResponse;
@@ -100,13 +101,13 @@ public class GoodService {
     /**
      * 查询商品详情
      *
-     * @param goodId
+     * @param goodsId
      * @return
      * @Author xiekai
      * @Date 2020-03-26
      */
-    public AppResponse getGoodByGoodId(String goodId) {
-        GoodInfo goodInfo = goodDao.getGoodByGoodId(goodId);
+    public AppResponse getGoods(String goodsId) {
+        GoodInfo goodInfo = goodDao.getGoods(goodsId);
         return AppResponse.success("查询成功！", goodInfo);
     }
 
@@ -118,10 +119,10 @@ public class GoodService {
      * @Author xiekai
      * @Date 2020-03-26
      */
-    public AppResponse listGood(GoodInfo goodInfo) {
+    public AppResponse listGoodsPage(GoodInfo goodInfo) {
 
         PageHelper.startPage(goodInfo.getPageNum(), goodInfo.getPageSize());
-        List<GoodInfo> goodInfoList = goodDao.listGoodByPage(goodInfo);
+        List<GoodInfo> goodInfoList = goodDao.listGoodsPage(goodInfo);
         PageInfo<GoodInfo> pageData = new PageInfo<GoodInfo>(goodInfoList);
         return AppResponse.success("查询成功！", pageData);
     }
@@ -133,11 +134,23 @@ public class GoodService {
      * @Date 2020-03-26
      */
     @Transactional(rollbackFor = Exception.class)
-    public AppResponse updateGoodStatus(String updateUser,String goodStatus,String goodId) {
-        List<String> listCode = Arrays.asList(goodId.split(","));
+    public AppResponse updateGoodsShelfState(GoodInfo goodInfo) {
+        List<String> listGoodsId = Arrays.asList(goodInfo.getGoodsId().split(","));
+        List<String> listVersion = Arrays.asList(goodInfo.getVersion().split(","));
+        List<GoodInfo> listUpdate = new ArrayList<>();
+        int goodStatusId = goodInfo.getGoodsStateId();
+        String updateUser =goodInfo.getUpdateUser();
+        for (int i = 0 ; i < listGoodsId.size() ; i++){
+            GoodInfo goodInfo1 = new GoodInfo();
+            goodInfo1.setGoodsId(listGoodsId.get(i));
+            goodInfo1.setVersion(listVersion.get(i));
+            goodInfo1.setGoodsStateId(goodStatusId);
+            goodInfo1.setUpdateUser(updateUser);
+            listUpdate.add(goodInfo1);
+        }
         AppResponse appResponse = AppResponse.success("修改成功");
         // 修改商品信息
-        int count = goodDao.updateGoodStatus(listCode,updateUser,goodStatus);
+        int count = goodDao.updateGoodsShelfState(listUpdate);
         if (0 == count) {
             appResponse = AppResponse.bizError("删除失败，请重试！");
         }

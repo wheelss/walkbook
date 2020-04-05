@@ -3,184 +3,177 @@
 <mapper namespace="com.xiekai.demo.good.dao.GoodDao">
     <!--统计商品数量-->
     <select id="countGoodAcct" parameterType="com.xiekai.demo.good.entity.GoodInfo" resultType="int">
-        select count(*)
-        from good
+        select count(isbn)
+        from t_info_goods
         where is_delete = 0
-        and good_id= #{goodId}
+        and goods_id= #{goodsId}
     </select>
 
     <!--新增商品-->
-    <insert id="saveGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
-        insert into good
-        (good_name,
-        first_classification,
-        second_classification,
-        ad,
-        good_introduction,
-        store_name,
-        inventory,
-        cost_price,
-        sell_price,
-        picture,
-        sales,
-        good_status,
-        views,
-        merchant_code,
-        isbn_code,
-        star_level,
-        writer,
-        press,
+    <insert id="addGoods" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        insert into t_info_goods
+        (goods_id,
+        isbn,
+        goods_name,
+        one_classify_name,
+        two_classify_name,
+        goods_describe,
+        supplier_name,
+        goods_inventory,
+        goods_original_cost,
+        goods_price,
+        goods_advertise,
+        goods_image_path,
+        goods_shelf_time,
+        goods_state_id,
+        goods_views_num,
+        goods_author,
+        goods_press,
+        goods_sales,
         is_delete,
-        create_user,
         create_time,
-        update_user,
-        update_time,
-        version)
+        create_user,
+        version
+        )
         values
-        (#{goodName},
-        #{firstClassification},
-        #{secondClassification},
-        #{ad},
-        #{goodIntroduction},
-        #{storeName},
-        #{inventory},
-        #{costPrice},
-        #{sellPrice},
-        #{picture},
+        (#{goodsId},
+        #{isbn},
+        #{goodsName},
+        #{oneClassifyName},
+        #{twoClassifyName},
+        #{goodsDescribe},
+        #{supplierName},
+        #{goodsInventory},
+        #{goodsOriginalCost},
+        #{goodsPrice},
+        #{goodsAdvertise},
+        #{goodsImagePath},
+        0,
+        3,
+        0,
+        #{goodsAuthor},
+        #{goodsPress},
         0,
         0,
-        0,
-        #{merchantCode},
-        #{isbnCode},
-        0,
-        #{writer},
-        #{press},
-        0,
+        now(),
         #{createUser},
-        now(),
-        #{updateUser},
-        now(),
         0)
     </insert>
 
     <!--删除商品-->
-    <update id="deleteGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
-        update good
+    <update id="deleteGoods" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        update t_info_goods
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser},
-        version = version + 1
-        where good_id in
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
+        where goods_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
     </update>
 
     <!--修改商品信息-->
-    <update id="updateGood" parameterType="com.xiekai.demo.good.entity.GoodInfo">
-        update good
+    <update id="updateGoods" parameterType="com.xiekai.demo.good.entity.GoodInfo">
+        update t_info_goods
         set
-        good_name = #{goodName},
-        isbn_code = #{isbnCode},
-        first_classification = #{firstClassification},
-        second_classification = #{secondClassification},
-        ad = #{ad},
-        good_introduction = #{goodIntroduction},
-        store_name =#{storeName},
-        inventory =#{inventory},
-        cost_price =#{costPrice},
-        sell_price =#{sellPrice},
-        update_time = now(),
-        update_user = #{updateUser},
-        version = version + 1
-        where good_id = #{goodId}
+            goods_name = #{goodsName},
+            isbn = #{isbn},
+            one_classify_name = #{oneClassifyName},
+            two_classify_name = #{twoClassifyName},
+            goods_describe = #{goodsDescribe},
+            supplier_name = #{supplierName},
+            goods_inventory = #{goodsInventory},
+            goods_original_cost = #{goodsOriginalCost},
+            goods_price = #{goodsPrice},
+            goods_advertise = #{goodsAdvertise},
+            goods_image_path = #{goodsImagePath},
+            goods_author = #{goodsAuthor},
+            goods_press = #{goodsPress},
+            update_time = now(),
+            update_user = #{updateUser},
+            version = version + 1
+        where goods_id = #{goodsId}
         and version = #{version}
     </update>
 
     <!--获取商品信息-->
-    <select id="getGoodByGoodId" parameterType="java.lang.String" resultType="com.xiekai.demo.good.entity.GoodInfo">
+    <select id="getGoods" parameterType="java.lang.String" resultType="com.xiekai.demo.good.entity.GoodInfo">
         select
-        good_name goodName,
-        first_classification firstClassification,
-        second_classification secondClassification,
-        ad,
-        good_introduction goodIntroduction,
-        store_name storeName,
-        inventory,
-        cost_price costPrice,
-        sell_price sellPrice,
-        picture,
-        sales,
-        good_status goodStatus,
-        shelf_time shelfTime,
-        views,
-        merchant_code merchantCode,
-        isbn_code isbnCode,
-        star_level starLevel,
-        writer,
-        press
-        from good
-        where good_id = #{goodId}
+            goods_name goodsName,
+            isbn isbn,
+            one_classify_name oneClassifyName,
+            two_classify_name twoClassifyName,
+            goods_describe goodsDescibe,
+            supplier_name supplierName,
+            goods_inventory goodsInventory,
+            goods_original_cost goodsOriginalCost,
+            goods_price goodsPrice,
+            goods_advertise goodsAdvertise,
+            goods_image_path goodsImagePath,
+            goods_author goodsAuthor,
+            goods_press goodsPress
+        from t_info_goods
+        where goods_id = #{goodsId}
         and is_delete = 0
     </select>
 
 
     <!--商品列表-->
-    <select id="listGoodByPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
+    <select id="listGoodsPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
             resultType="com.xiekai.demo.good.entity.GoodInfo">
         select
-        good_code goodCode,
-        good_name goodName,
-        cost_price costPrice,
-        sell_price sellPrice,
-        sales,
-        first_classification firstClassification,
-        second_classification secondClassification,
-        ad,
-        good_introduction goodIntroduction,
-        good_status goodStatus,
-        shelf_time shelfTime,
-        views,
-        merchant_code merchantCode,
-        store_name storeName,
-        inventory,
-        isbn_code isbnCode,
-        star_level starLevel,
-        writer,
-        press
-        from good
+            goods_name goodsName,
+            goods_original_cost goodsOriginalCost,
+            goods_price goodsPrice,
+            goods_sales goodsSales,
+            one_classify_name oneClassifyName,
+            two_classify_name twoClassifyName,
+            goods_advertise goodsAdvertise,
+            goods_describe goodsDescibe,
+            goods_state_id goodsStateId,
+            goods_shelf_time goodsShelfTime,
+            goods_views_num goodsViewsNum,
+            supplier_name supplierName,
+            goods_image_path goodsImagePath,
+            goods_inventory goodsInventory,
+            isbn,
+            goods_id goodsId,
+            version
+        from t_info_goods
         where is_delete = 0
-        <if test="goodName != null and goodName != ''">
-            and good_name like concat('%', #{goodName}, '%')
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, '%')
         </if>
-        <if test="ad != null and ad != ''">
-            and ad like concat('%', #{ad}, '%')
+        <if test="goodsAdvertise != null and goodsAdvertise != ''">
+            and goods_advertise like concat('%', #{goodsAdvertise}, '%')
         </if>
-        <if test="writer != null and writer != ''">
-            and writer like concat('%', #{writer}, '%')
+        <if test="goodsAuthor != null and goodsAuthor != ''">
+            and goods_author like concat('%', #{goodsAuthor}, '%')
         </if>
-        <if test="press != null and press != ''">
-            and press like concat('%', #{press}, '%')
+        <if test="goodsPress != null and goodsPress != ''">
+            and goods_press like concat('%', #{goodsPress}, '%')
         </if>
-        <if test="goodStatus != null and goodStatus != ''">
-            and good_status like concat('%', #{goodStatus}, '%')
+        <if test="goodsStateId != null and goodsStateId != ''">
+            and goods_state_id like concat('%', #{goodsStateId}, '%')
         </if>
         order by update_time desc
     </select>
 
     <!--修改商品状态-->
-    <update id="updateGoodStatus" parameterType="com.xiekai.demo.good.entity.GoodInfo">
-        update good
-        set
-        good_status = #{goodStatus},
-        update_time = now(),
-        update_user = #{updateUser},
-        shelf_time = now(),
-        version = version + 1
-        where good_id in
-        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
-            #{item}
+    <update id="updateGoodsShelfState" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_info_goods
+            <set>
+                goods_state_id = #{item.goodsStateId},
+                update_time = now(),
+                update_user = #{item.updateUser,jdbcType=VARCHAR},
+                version = version + 1
+            </set>
+            <where>
+                goods_id = #{item.goodsId,jdbcType=VARCHAR}
+                AND version = #{item.version}
+            </where>
         </foreach>
     </update>
 
