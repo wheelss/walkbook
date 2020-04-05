@@ -19,7 +19,7 @@ import javax.annotation.Resource;
  * @time 2020-3-27
  */
 @RestController
-@RequestMapping("/rotation")
+@RequestMapping("/slideshowHome")
 public class RotationController {
 
     private static final Logger logger = LoggerFactory.getLogger(RotationController.class);
@@ -34,10 +34,10 @@ public class RotationController {
      * @author xiekai
      * @time 2020-3-27
      */
-    @PostMapping("saveRotation")
-    public AppResponse saveRotation(RotationInfo rotationInfo) {
+    @PostMapping("addSlideshowHome")
+    public AppResponse addSlideshowHome(RotationInfo rotationInfo) {
         try {
-            AppResponse appResponse = rotationService.saveRotation(rotationInfo);
+            AppResponse appResponse = rotationService.addSlideshowHome(rotationInfo);
             return appResponse;
         } catch (Exception e) {
             logger.error("轮播图新增失败", e);
@@ -53,10 +53,10 @@ public class RotationController {
      * @author xiekai
      * @time 2020-3-31
      */
-    @PostMapping("deleteRotation")
-    public AppResponse deleteRotation(String rotationId, String updateUser) {
+    @PostMapping("deleteSlideshowHome")
+    public AppResponse deleteSlideshowHome(String slideshowId, String updateUser) {
         try {
-            return rotationService.deleteRotation(rotationId, updateUser);
+            return rotationService.deleteSlideshowHome(slideshowId, updateUser);
         } catch (Exception e) {
             logger.error("轮播图删除错误", e);
             System.out.println(e.toString());
@@ -70,11 +70,10 @@ public class RotationController {
      * @author xiekai
      * @time 2020-3-25
      */
-    @PostMapping("updateRotationStatus")
-    public AppResponse updateRotationStatus(String updateUser,String status,
-                                        String rotationId,String expiryDate) {
+    @PostMapping("updateSlideshowHomeState")
+    public AppResponse updateSlideshowHomeState(RotationInfo rotationInfo) {
         try {
-            return rotationService.updateRotationStatus(updateUser,status,rotationId,expiryDate);
+            return rotationService.updateSlideshowHomeState(rotationInfo);
         } catch (Exception e) {
             logger.error("修改轮播图状态错误", e);
             System.out.println(e.toString());
@@ -89,10 +88,10 @@ public class RotationController {
      * @author xiekai
      * @Date 2020-04-02
      */
-    @RequestMapping(value = "listRotation")
-    public AppResponse listRotation(RotationInfo rotationInfo) {
+    @RequestMapping(value = "listSlideshowHome")
+    public AppResponse listSlideshowHome(RotationInfo rotationInfo) {
         try {
-            return rotationService.listRotation(rotationInfo);
+            return rotationService.listSlideshowHome(rotationInfo);
         } catch (Exception e) {
             logger.error("查询轮播图列表异常", e);
             System.out.println(e.toString());
@@ -106,10 +105,10 @@ public class RotationController {
      * @author xiekai
      * @time 2020-4-2
      */
-    @RequestMapping(value = "listRotationGood")
-    public AppResponse listGood(GoodInfo goodInfo) {
+    @RequestMapping(value = "listGoods")
+    public AppResponse listGoods(GoodInfo goodInfo) {
         try {
-            return rotationService.listRotationGood(goodInfo);
+            return rotationService.listGoods(goodInfo);
         } catch (Exception e) {
             logger.error("查询商品列表异常", e);
             System.out.println(e.toString());

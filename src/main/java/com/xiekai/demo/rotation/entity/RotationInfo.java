@@ -15,6 +15,22 @@ public class RotationInfo {
      * 页数
      */
     private int pageNum;
+    /**
+     * 轮播图id
+     */
+    private String slideshowId;
+    /**
+     * 轮播图路径
+     */
+    private String slideshowPath;
+    /**
+     * 排序
+     */
+    private int slideshowNum;
+    /**
+     * 状态
+     */
+    private int slideshowStateId;
 
     public int getPageSize() {
         return pageSize;
@@ -32,113 +48,60 @@ public class RotationInfo {
         this.pageNum = pageNum;
     }
 
-    /**
-     * 轮播图id
-     */
-    private String rotationId;
-    /**
-     * 轮播图路径
-     */
-    private String rotation;
-    /**
-     * 排序
-     */
-    private int sorting;
-    /**
-     * 状态
-     */
-    private int status;
-    /**
-     * 有效期起
-     */
-    private String effectiveDate;
-    /**
-     * 有效期止
-     */
-    private String expiryDate;
-    /**
-     * 商品选择
-     */
-    private String good;
-    /**
-     * 作废标记 0为存在，1为作废
-     */
-    private int isDelete;
-    /**
-     * 创建时间
-     */
-    private String createTime;
-    /**
-     * 创建者
-     */
-    private String createUser;
-    /**
-     * 更新时间
-     */
-    private String updateTime;
-    /**
-     * 更新者
-     */
-    private String updateUser;
-    /**
-     * 版本号
-     */
-    private String version;
-
-    public String getRotationId() {
-        return rotationId;
+    public String getSlideshowId() {
+        return slideshowId;
     }
 
-    public void setRotationId(String rotationId) {
-        this.rotationId = rotationId;
+    public void setSlideshowId(String slideshowId) {
+        this.slideshowId = slideshowId;
     }
 
-    public String getRotation() {
-        return rotation;
+    public String getSlideshowPath() {
+        return slideshowPath;
     }
 
-    public void setRotation(String rotation) {
-        this.rotation = rotation;
+    public void setSlideshowPath(String slideshowPath) {
+        this.slideshowPath = slideshowPath;
     }
 
-    public int getSorting() {
-        return sorting;
+    public int getSlideshowNum() {
+        return slideshowNum;
     }
 
-    public void setSorting(int sorting) {
-        this.sorting = sorting;
+    public void setSlideshowNum(int slideshowNum) {
+        this.slideshowNum = slideshowNum;
     }
 
-    public int getStatus() {
-        return status;
+    public int getSlideshowStateId() {
+        return slideshowStateId;
     }
 
-    public void setStatus(int status) {
-        this.status = status;
+    public void setSlideshowStateId(int slideshowStateId) {
+        this.slideshowStateId = slideshowStateId;
     }
 
-    public String getEffectiveDate() {
-        return effectiveDate;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setEffectiveDate(String effectiveDate) {
-        this.effectiveDate = effectiveDate;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
     }
 
-    public String getExpiryDate() {
-        return expiryDate;
+    public String getEndTime() {
+        return endTime;
     }
 
-    public void setExpiryDate(String expiryDate) {
-        this.expiryDate = expiryDate;
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 
-    public String getGood() {
-        return good;
+    public String getGoodsId() {
+        return goodsId;
     }
 
-    public void setGood(String good) {
-        this.good = good;
+    public void setGoodsId(String goodsId) {
+        this.goodsId = goodsId;
     }
 
     public int getIsDelete() {
@@ -188,4 +151,41 @@ public class RotationInfo {
     public void setVersion(String version) {
         this.version = version;
     }
+
+    /**
+     * 有效期起
+     */
+    private String startTime;
+    /**
+     * 有效期止
+     */
+    private String endTime;
+    /**
+     * 商品选择
+     */
+    private String goodsId;
+    /**
+     * 作废标记 0为存在，1为作废
+     */
+    private int isDelete;
+    /**
+     * 创建时间
+     */
+    private String createTime;
+    /**
+     * 创建者
+     */
+    private String createUser;
+    /**
+     * 更新时间
+     */
+    private String updateTime;
+    /**
+     * 更新者
+     */
+    private String updateUser;
+    /**
+     * 版本号
+     */
+    private String version;
 }

@@ -3,98 +3,98 @@
 <mapper namespace="com.xiekai.demo.rotation.dao.RotationDao">
 
     <!--新增轮播图-->
-    <insert id="saveRotation" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
-        insert into rotation
-        (rotation,
-        sorting,
-        status,
-        effective_date,
-        expiry_date,
-        good,
+    <insert id="addSlideshowHome" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
+        insert into t_info_slideshow_home
+        (slideshow_id,
+        slideshow_num,
+        slideshow_path,
+        start_time,
+        end_time,
+        goods_id,
         is_delete,
         create_user,
         create_time,
-        update_user,
-        update_time,
-        version)
+        version,
+        slideshow_state_id)
         values
-        (#{rotation},
-        #{sorting},
-        2,
-        #{effectiveDate},
-        #{expiryDate},
-        #{good},
+        (#{slideshowId},
+        #{slideshowNum},
+        #{slideshowPath},
+        #{startTime},
+        #{endTime},
+        #{goodsId},
         0,
         #{createUser},
         now(),
-        #{updateUser},
-        now(),
+        0,
         0)
     </insert>
 
     <!--删除轮播图-->
-    <update id="deleteRotation" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
-        update rotation
+    <update id="deleteSlideshowHome" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
+        update t_info_slideshow_home
         set
-        is_delete = 1,
-        update_time = now(),
-        update_user = #{updateUser},
-        version = version + 1
-        where rotation_id in
+            is_delete = 1,
+            update_time = now(),
+            update_user = #{updateUser}
+        where slideshow_id in
         <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
             #{item}
         </foreach>
     </update>
 
     <!--修改轮播图状态-->
-    <update id="updateRotationStatus" parameterType="com.xiekai.demo.rotation.entity.RotationInfo">
-        update rotation
-        set
-        status = #{status},
-        update_time = now(),
-        update_user = #{updateUser},
-        effective_date =now(),
-        expiry_date = #{expiryDate},
-        version = version + 1
-        where rotation_id in
-        <foreach item="item" index="index" collection="listCode" open="(" separator="," close=")">
-            #{item}
+    <update id="updateSlideshowHomeState" parameterType="java.util.List">
+        <foreach collection="listUpdate" item="item" index="index" open="" separator=";" close="">
+            update t_info_slideshow_home
+            <set>
+                slideshow_state_id = #{item.slideshowStateId},
+                update_time = now(),
+                update_user = #{item.updateUser,jdbcType=VARCHAR},
+                version = version + 1
+            </set>
+            <where>
+                slideshow_id = #{item.slideshowId,jdbcType=VARCHAR}
+                AND version = #{item.version}
+            </where>
         </foreach>
     </update>
 
     <!--轮播图列表-->
-    <select id="listRotationByPage" parameterType="com.xiekai.demo.rotation.entity.RotationInfo"
+    <select id="listSlideshowHome" parameterType="com.xiekai.demo.rotation.entity.RotationInfo"
             resultType="com.xiekai.demo.rotation.entity.RotationInfo">
         select
-            sorting,
-            rotation,
-            status,
-            effective_date,
-            expiry_date
-        from rotation
+            slideshow_num slideshowNum,
+            slideshow_path slideshowPath,
+            slideshow_state_id slideshowStateId,
+            start_time startTime,
+            end_time endTime,
+            slideshow_id slideshowId,
+            version
+        from t_info_slideshow_home
         where is_delete = 0
-        <if test="status != null and status != ''">
-            and status like concat('%', #{status}, '%')
+        <if test="slideshowStateId != null and slideshowStateId != ''">
+            and slideshow_state_id like concat('%', #{slideshowStateId}, '%')
         </if>
         order by update_time desc
     </select>
 
     <!--商品列表-->
-    <select id="listGoodByPage" parameterType="com.xiekai.demo.good.entity.GoodInfo"
+    <select id="listGoods" parameterType="com.xiekai.demo.good.entity.GoodInfo"
             resultType="com.xiekai.demo.good.entity.GoodInfo">
         select
-            isbn_code isbnCode,
-            good_name goodName,
-            sales,
-            first_classification firstClassification,
-            second_classification secondClassification
-        from good
+            goods_id goodsId,
+            goods_name goodsName,
+            goods_state_id goodsStateId,
+            one_classify_name oneClassifyName,
+            two_classify_name twoClassifyName
+        from t_info_goods
         where is_delete = 0
-        <if test="goodName != null and goodName != ''">
-            and good_name like concat('%', #{goodName}, '%')
+        <if test="goodsName != null and goodsName != ''">
+            and goods_name like concat('%', #{goodsName}, '%')
         </if>
-        <if test="isbnCode != null and isbnCode != ''">
-            and isbn_code like concat('%', #{isbnCode}, '%')
+        <if test="goodsId != null and goodsId != ''">
+            and goods_id like concat('%', #{goodsId}, '%')
         </if>
         order by update_time desc
     </select>
